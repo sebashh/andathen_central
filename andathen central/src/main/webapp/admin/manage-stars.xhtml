@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Manage star systems</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Cache-Control', 'no-cache, no-store')}" />
+	<h2>Star Systems</h2>
+	
+	<h:form id="list" >
+		<h3>Filters:</h3>
+		<h:panelGrid id = "filters" columns = "4" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:outputLabel for="accessLevelFilter" value="Access Level Filter: &nbsp;" />
+	        <h:selectOneMenu for="accessLevel" value="#{starBean.filterAccessLevelStars}" >
+	            <f:selectItems value="#{enumsBean.accessLevels}" />
+	            <f:ajax listener="#{starBean.updateStars}" render="stars"/>
+	        </h:selectOneMenu> 
+	        
+			<h:outputLabel for="habitableOnly" value="Stars with Gaia planets" />
+			<h:selectBooleanCheckbox id="habitableOnly" value="#{starBean.filterHabitableOnly}" disabled="false">
+	            <f:ajax listener="#{starBean.updateStars}" render="stars"/>
+	        </h:selectBooleanCheckbox>
+	        
+	        <h:outputLabel for="marginalPlanets" value="Stars with marginally habitable planets" />
+			<h:selectBooleanCheckbox id="marginalPlanets" value="#{starBean.filterMarginalPlanets}" disabled="false">
+	            <f:ajax listener="#{starBean.updateStars}" render="stars"/>
+       		</h:selectBooleanCheckbox>
+        </h:panelGrid>
+		
+		<h:dataTable id="stars" value = "#{starBean.stars}" var = "star" rendered="#{starBean.stars ne null}"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+		   
+		   <h:column>
+	 		   <f:facet name = "header">Image</f:facet> 
+	 		   <h:graphicImage value="/image?id=body_#{star.bodyImage.id}" width="20" height="20" />
+	 	   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Name</f:facet>
+		      #{star.name}
+		   </h:column>
+		   
+		   <h:column>    				
+		      <f:facet name = "header">Type</f:facet>    				
+		      #{star.type}#{star.temperatureSequence}
+		   </h:column>
+		   
+		   <h:column>    				
+		      <f:facet name = "header">Access Level</f:facet>    				
+		      #{star.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Distance to Ciadan</f:facet>
+				#{star.distanceToCiadanRounded}
+		   </h:column>
+		   
+   		   <h:column>
+		      <f:facet name = "header">Number Of Planets</f:facet>
+				#{star.numberOfPlanets}
+		   </h:column>
+		   
+   		   <h:column>
+		      <f:facet name = "header">Number Of Inhabitable Planets</f:facet>
+				#{star.numberOfInhabitablePlanets}
+		   </h:column>
+		   
+		   <h:column>
+  		      <f:facet name = "header">Double Star</f:facet>
+ 		   	  <h:selectBooleanCheckbox id="doublestar" value="#{star.doubleStar}" disabled="true"/>
+		   </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="details" value="Details" action="#{starBean.starDetails(star)}" />
+		   </h:column>
+		     
+		</h:dataTable> <br/><br/>
+		
+		<!--The paging buttons-->
+        <h:commandButton value="first" action="#{starBean.pageFirst}" disabled="#{starBean.firstRow == 0}" />
+        <h:commandButton value="prev" action="#{starBean.pagePrevious}" disabled="#{starBean.firstRow == 0}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:commandButton value="next" action="#{starBean.pageNext}" disabled="#{starBean.firstRow + starBean.rowsPerPage >= starBean.totalRows}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:commandButton value="last" action="#{starBean.pageLast}" disabled="#{starBean.firstRow + starBean.rowsPerPage >= starBean.totalRows}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:outputText value="Page #{starBean.currentPage} / #{starBean.totalPages}" />
+        <br />
+            
+        <!--The paging links-->
+        <ui:repeat value="#{starBean.pages}" var="page">
+            <h:commandLink value="#{page}" actionListener="#{starBean.page}"  rendered="#{page != starBean.currentPage}" />
+        <b> <h:outputText value="#{page}" escape="false" rendered="#{page == starBean.currentPage}" /> </b>
+        </ui:repeat>
+        <br />
+        
+        <!-- Set rows per page -->
+        <h:outputLabel for="rowsPerPage" value="Rows per page" />
+        <h:inputText id="rowsPerPage" value="#{starBean.rowsPerPage}" size="3" maxlength="3" />
+        <h:commandButton value="Set" action="#{starBean.pageFirst}" />
+        <h:message for="rowsPerPage" errorStyle="color: red;" /> <br/><br/>
+            
+		<!-- Action buttons -->
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{starBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>

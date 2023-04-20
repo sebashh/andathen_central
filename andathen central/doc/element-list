@@ -1,0 +1,16 @@
+nl.andathen.cental.util
+nl.andathen.central.beans
+nl.andathen.central.CustomFormAuth
+nl.andathen.central.dao
+nl.andathen.central.domain
+nl.andathen.central.domain.admin
+nl.andathen.central.domain.character
+nl.andathen.central.domain.council
+nl.andathen.central.domain.events
+nl.andathen.central.domain.galaxy
+nl.andathen.central.domain.galaxy.planet
+nl.andathen.central.domain.person
+nl.andathen.central.domain.resources
+nl.andathen.central.Service.wsdl
+nl.andathen.central.util
+nl.andathen.central.view

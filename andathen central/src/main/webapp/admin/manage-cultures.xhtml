@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of in-game cultures</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game cultures</h2>
+	
+	<h:form id="list" >
+		<h3>Filters:</h3>
+		<h:outputLabel for="accessLevelFilter" value="Access Level Filter: &nbsp;" />
+        <h:selectOneMenu for="accessLevel" value="#{cultureBean.filterAccessLevelCultures}" >
+        	<f:selectItem  itemValue = "#{null}" itemLabel = "All"/>
+            <f:selectItems value="#{enumsBean.accessLevels}" />
+            <f:ajax listener="#{cultureBean.updateCultures}" render="cultures"/>
+        </h:selectOneMenu> <br/>  <br/>
+		
+		<h:dataTable id="cultures" value = "#{cultureBean.cultures}" var = "cult"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+   
+		   <h:column>    				
+		      <f:facet name = "header">Name</f:facet>    				
+		      #{cult.name}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Description</f:facet>
+		      #{cult.shortDescription}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Access Level</f:facet>
+		      #{cult.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+                 <f:facet name = "header">Species</f:facet>
+                 #{cult.species.name}
+           </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="edit" value="Edit" action="#{cultureBean.edit(cult)}" />
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{cultureBean.delete(cult)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable> <br/><br/>
+		
+		<h:commandButton id="make" value="Add Culture" action="#{cultureBean.create}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{cultureBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Add new zipcodes</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Add new zipcodes </h2>
+	
+	<h:form id="details" >
+		zipcode, street, municipality, country, town (optional), region (optional), lowest house number (optional), highest house number(optional) <br/>
+		
+		<h:inputTextarea id="data" row = "80" col = "200" width = "200" value="#{zipcodeBean.bulkData}" required="true" > 
+		</h:inputTextarea> <br/>
+		
+		<h:commandButton id="cancel" value="Cancel" action="#{zipcodeBean.cancel}" />
+		<h:commandButton id="update" value="Create" action="#{zipcodeBean.add}" />
+	</h:form>
+
+</body> 
+</html>

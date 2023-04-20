@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Details of real-world languages</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game resource: #{languageBean.language.name} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >
+	 	<h:graphicImage value="/image?id=language_#{languageBean.language.id}" width="200" height="200" />
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:outputLabel for="iso" value="ISO Code" />
+			<h:inputText id="iso" size="2" value="#{languageBean.language.iso}" required="true" validatorMessage="ISO length needs to be 2 characters" > 
+				<f:validateLength minimum = "2" maximum = "2" />
+			</h:inputText>
+
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{languageBean.language.name}" required="true" validatorMessage="Length of the name needs to be between 3 and 250 characters" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="langType" value="Type" />
+			<h:selectOneMenu for="langType" value="#{languageBean.language.type}" >
+				<f:selectItems value="#{enumsBean.languageTypes}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "200" width = "200" value="#{languageBean.language.description}" required="true" validatorMessage="Description length needs to be between 10 and 2000 characters" >
+				<f:validateLength minimum = "10" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:inputFile value="#{languageBean.uploadedFile}">
+			    <f:ajax listener="#{languageBean.upload}" />
+			    <f:ajax execute="@this" render="@all" />
+			</h:inputFile>
+		</h:panelGrid>
+
+		<h:message for = "iso" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "name" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "description" style = "color:red" showSummary = "false" />
+						
+		<h:commandButton id="edit" value="Submit" action="#{languageBean.submit}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{languageBean.goToMainPage()}" />
+		
+	</h:form>
+	
+</body> 
+</html>

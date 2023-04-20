@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>In-game source details</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game source: #{sourceBean.source.name} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >	
+		<h:graphicImage value="/image?id=source_#{sourceBean.source.id}" width="200" height="200" />
+
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">	 	
+			<h:outputLabel for="regnumber" value="Ciadan Registration Number" />
+			<h:inputText id="regnumber" size="25" value="#{sourceBean.source.registrationNumber}" required="true" validatorMessage="Length of the registration number needs to be between 3 and 250 characters" enabled="true" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{sourceBean.source.name}" required="true" validatorMessage="Length of the name needs to be between 3 and 250 characters" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "100" width = "200" value="#{sourceBean.source.description}" required="true" validatorMessage="Description length needs to be between 3 and 250 characters" > 
+				<f:validateLength minimum = "20" maximum = "250"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{sourceBean.source.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+	
+			<h3>Selecting owner:</h3>
+			<h:outputLabel>
+				Previous #{sourceBean.source.owner.toString()} <br/>
+				Had Access Level: #{sourceBean.source.owner.accessLevel}
+			</h:outputLabel>
+			
+			<h:outputLabel for="accessLevelFilter" value="Access Level Filter" />
+	        <h:selectOneMenu for="accessLevel" value="#{sourceBean.filterAccessLevelOrganization}" >
+	        	<f:selectItem  itemValue = "#{null}" itemLabel = "All"/>
+	            <f:selectItems value="#{enumsBean.accessLevels}" />
+	            <f:ajax listener="#{sourceBean.updateOrganizations}" render="owner_select"/>
+	        </h:selectOneMenu>
+			
+			<h:outputLabel for="owner" value="Organizations" />
+	        <h:selectOneMenu id="owner_select" for="owner" value="#{sourceBean.source.owner}" converter="omnifaces.SelectItemsConverter" >
+	            <f:selectItems value="#{sourceBean.organizationOptions}" />
+	        </h:selectOneMenu>
+	    </h:panelGrid>
+        
+   		<h:inputFile value="#{sourceBean.uploadedFile}">
+		    <f:ajax listener="#{sourceBean.upload}" />
+		    <f:ajax execute="@this" render="@all" />
+		</h:inputFile> <br/> <br/>
+		
+		<h:message for = "regnumber" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "name" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "description" style = "color:red" showSummary = "false" /> 
+						        
+		<h:commandButton id="edit" value="Submit" action="#{sourceBean.submit}" />
+		<h:commandButton id="cancel" value="Cancel" action="#{sourceBean.cancel}" />
+	</h:form>
+
+</body> 
+</html>

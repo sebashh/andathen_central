@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Details of a species</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game species: #{speciesBean.specie.name} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >
+	 	<h:graphicImage value="/image?id=species_#{speciesBean.specie.id}" width="200" height="200" />
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{speciesBean.specie.name}" required="true" validatorMessage="Length of the name needs to be between 3 and 250 characters"> 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "100" width = "100" value="#{speciesBean.specie.description}" required="true" validatorMessage="Description length needs to be between 3 and 2000 characters" > 
+				<f:validateLength minimum = "3" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="playerNotes" value="Player notes" />
+			<h:inputTextarea id="playerNotes" row = "20" col = "100" width = "100" value="#{speciesBean.specie.playerNotes}" required="false" validatorMessage="Notes length needs to be between 3 and 2000 characters" > 
+				<f:validateLength minimum = "3" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{speciesBean.specie.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="accessLevelImage" value="Access Level Image" />
+			<h:selectOneMenu for="accessLevelImage" value="#{speciesBean.specie.accessLevelImage}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="techLevel" value="Technological Level" />
+			<h:selectOneMenu for="techlevel" value="#{speciesBean.specie.technicalLevel}" >
+				<f:selectItems value="#{enumsBean.technicalLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="accessLevelTechlevel" value="Access Level Technological Level" />
+			<h:selectOneMenu for="accessLevelTechlevel" value="#{speciesBean.specie.accessLevelTechlevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="intelligence" value="Average Intelligence" />
+			<h:selectOneMenu for="intelligence" value="#{speciesBean.specie.intelligence}" >
+				<f:selectItems value="#{enumsBean.intelligenceLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="accessLevelIntelligence" value="Access Level Intelligence" />
+			<h:selectOneMenu for="accessLevelIntelligence" value="#{speciesBean.specie.accessLevelIntelligence}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="climate" value="Preferred Climate" />
+			<h:selectOneMenu for="climate" value="#{speciesBean.specie.preferredClimate}" >
+				<f:selectItems value="#{enumsBean.climates}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="accessLevelClimate" value="Access Level Preferred Climate" />
+			<h:selectOneMenu for="accessLevelClimate" value="#{speciesBean.specie.accessLevelClimate}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="council" value="Relations with Council" />
+			<h:selectOneMenu for="council" value="#{speciesBean.specie.councilRelations}" >
+				<f:selectItems value="#{enumsBean.relations}" />
+			</h:selectOneMenu>
+	
+			<h:outputLabel for="origins" value="Planet of Origins" />
+			<h:selectOneMenu for="origins" value="#{speciesBean.specie.planetOfOrigin}" > </h:selectOneMenu>
+			
+			<h:outputLabel for="source" value="Source &nbsp;" />
+			<h:selectOneMenu for="source" value="#{speciesBean.specie.source}" > </h:selectOneMenu>
+	
+			<h:outputLabel for="accessLevelOrigins" value="Access Level Origins" />
+			<h:selectOneMenu for="accessLevelOrigins" value="#{speciesBean.specie.accessLevelOrigins}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="accessLevel" value="Access Level Skill Modifiers" />
+			<h:selectOneMenu for="accessLevelModifiers" value="#{speciesBean.specie.accessLevelModifiers}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="playable" value="Playable" />
+			<h:selectBooleanCheckbox id="playable" value="#{speciesBean.specie.playable}" disabled="false"/>
+			
+			<h:outputLabel for="councilSpace" value="In Council Space" />
+			<h:selectBooleanCheckbox id="councilSpace" value="#{speciesBean.specie.inCouncilSpace}" disabled="false"/>
+		</h:panelGrid>
+			
+		<h:inputFile value="#{speciesBean.uploadedFile}">
+		    <f:ajax listener="#{speciesBean.upload}" />
+		    <f:ajax execute="@all" render="@all" />
+		</h:inputFile>
+		
+		<h:message for = "name" style = "color:red" showSummary = "false" /> <br/>
+		<h:message for = "description" style = "color:red" showSummary = "false" /> <br/>
+		<h:message for = "playerNotes" style = "color:red" showSummary = "false" /> <br/>
+		
+		<h:commandButton id="edit" value="Submit" action="#{speciesBean.submit}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{speciesBean.goToMainPage()}" />
+						
+	</h:form>
+</body> 
+</html>

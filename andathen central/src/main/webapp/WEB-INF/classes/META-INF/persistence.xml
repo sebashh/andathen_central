@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+<persistence-unit name="andathen" transaction-type="JTA">
+	<jta-data-source>andathenDS</jta-data-source>
+	<exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+	        <property name="hibernate.dialect" value="nl.andathen.central.dao.pagination.MySQLDialect"/>
+        	<property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+            <property name="hibernate.search.default.indexBase" value="./lucene/indexes"/>
+            <property name="jboss.as.jpa.providerModule" value="org.hibernate" />
+      		<property name="wildfly.jpa.hibernate.search.module" value="org.hibernate.search.orm" />
+        </properties>
+	</persistence-unit>
+</persistence>

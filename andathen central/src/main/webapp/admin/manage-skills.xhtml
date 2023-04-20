@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of in-game skills</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game skils</h2>
+	
+	<h:form id="list">
+
+		<h:dataTable id="skills" value = "#{skillBean.skills}" var = "skill"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+		   
+		   <h:column>
+		      <f:facet name = "header">Category</f:facet>
+		      #{skill.category.category}
+		   </h:column>
+		   
+		   <h:column>    				
+		      <f:facet name = "header">Name</f:facet>    				
+		      #{skill.name}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Prerequisite</f:facet>
+		      #{skill.prerequisite.name}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Age Experience</f:facet>
+		      	<h:selectBooleanCheckbox id="ageExperience" value="#{skill.ageExperience}" disabled="true"/>
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Description</f:facet>
+		      #{skill.shortDescription}
+		   </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="edit" value="Edit" action="#{skillBean.edit(skill)}" />
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{skillBean.delete(skill)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable>
+		
+		<h:commandButton id="make" value="Add Skill" action="#{skillBean.create}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{skillBean.goToMainPage()}" />
+	
+	</h:form>
+
+</body> 
+</html>

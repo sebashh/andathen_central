@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of in-game species</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game species</h2>
+	
+	<h:form id="list">
+
+		<h:dataTable id="skills" value = "#{speciesBean.species}" var = "specie" rendered="#{speciesBean.species ne null}"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+		   
+   		   <h:column>
+ 		      <f:facet name = "header">Image</f:facet> 
+ 		      <h:graphicImage value="/image?id=species_#{specie.id}" width="40" height="40" />
+ 		   </h:column>
+		   
+   		   <h:column>    				
+		      <f:facet name = "header">Name</f:facet>    				
+		      #{specie.name}
+		   </h:column>
+		   
+   		   <h:column>
+		      <f:facet name = "header">Access Level</f:facet>
+		      #{specie.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Techlevel</f:facet>
+		      #{specie.technicalLevel}
+		   </h:column>
+		   
+   		   <h:column>
+		      <f:facet name = "header">Council Relations</f:facet>
+		      #{specie.councilRelations}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Playable</f:facet>
+		      	<h:selectBooleanCheckbox id="playable" value="#{specie.playable}" disabled="true"/>
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">In Council Space</f:facet>
+		      	<h:selectBooleanCheckbox id="inCouncilSpace" value="#{specie.inCouncilSpace}" disabled="true"/>
+		   </h:column>
+		   
+   		   <h:column>
+		      <f:facet name = "header">Description</f:facet>
+		      #{specie.shortDescription}
+		   </h:column>
+
+		   <h:column>
+			   <h:commandButton id="edit" value="Edit" action="#{speciesBean.edit(specie)}" />
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{speciesBean.delete(specie)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable>
+		
+		<!--The paging buttons-->
+        <h:commandButton value="first" action="#{speciesBean.pageFirst}" disabled="#{speciesBean.firstRow == 0}" />
+        <h:commandButton value="prev" action="#{speciesBean.pagePrevious}" disabled="#{speciesBean.firstRow == 0}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:commandButton value="next" action="#{speciesBean.pageNext}" disabled="#{speciesBean.firstRow + speciesBean.rowsPerPage >= speciesBean.totalRows}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:commandButton value="last" action="#{speciesBean.pageLast}" disabled="#{speciesBean.firstRow + speciesBean.rowsPerPage >= speciesBean.totalRows}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:outputText value="Page #{speciesBean.currentPage} / #{speciesBean.totalPages}" />
+        <br />
+            
+        <!--The paging links-->
+        <ui:repeat value="#{speciesBean.pages}" var="page">
+            <h:commandLink value="#{page}" actionListener="#{speciesBean.page}"  rendered="#{page != speciesBean.currentPage}" />
+        <b> <h:outputText value="#{page}" escape="false" rendered="#{page == speciesBean.currentPage}" /> </b>
+        </ui:repeat>
+        <br />
+        
+        <!-- Set rows per page -->
+        <h:outputLabel for="rowsPerPage" value="Rows per page" />
+        <h:inputText id="rowsPerPage" value="#{speciesBean.rowsPerPage}" size="3" maxlength="3" />
+        <h:commandButton value="Set" action="#{speciesBean.pageFirst}" />
+        <h:message for="rowsPerPage" errorStyle="color: red;" /> <br/><br/>
+            
+		<!-- Action button -->
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{speciesBean.goToMainPage()}" />
+	
+	</h:form>
+
+</body> 
+</html>

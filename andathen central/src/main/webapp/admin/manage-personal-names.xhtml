@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of in-game personal names</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Cache-Control', 'no-cache, no-store')}" />
+	<h2>In-game personal names</h2>
+	
+	<h:form id="list" >
+		
+		<h:dataTable id="personalNames" value = "#{personalNameBean.personalNames}" var = "pn"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+		   
+   		   <h:column>
+                 <f:facet name = "header">Language</f:facet>
+                 #{pn.language.name}
+           </h:column>
+   
+		   <h:column>    				
+		      <f:facet name = "header">First Name</f:facet>    				
+		      #{pn.firstName}
+		   </h:column>
+		   
+		   <h:column>    				
+		      <f:facet name = "header">Last Name</f:facet>    				
+		      #{pn.lastName}
+		   </h:column>
+           
+   		   <h:column>
+		      <f:facet name = "header">Gender</f:facet>
+		      #{pn.gender.name}
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{personalNameBean.delete(pn)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable> <br/><br/>
+		
+		<h:commandButton id="make" value="Add Names" action="#{personalNameBean.addBulk}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{personalNameBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>

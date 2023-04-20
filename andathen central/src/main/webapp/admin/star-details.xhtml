@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Details of a star system</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Star: #{starBean.star.commonName} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >
+	 	<h:graphicImage value="/image?id=body_#{starBean.star.bodyImage.id}" width="200" height="200" /> <br/><br/>
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{starBean.star.name}" /> 
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "100" width = "100" value="#{starBean.star.description}" /> 
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{starBean.star.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="starType" value="Star Type" />
+			<h:outputText id="starType" size="5" value="#{starBean.star.type}#{starBean.star.temperatureSequence} - #{starBean.star.luminosity}" enabled="false" /> 
+			
+			<h:outputLabel for="coordinate" value="Coordinates" />
+			<h:outputText id="coordinate" size="5" value="(#{starBean.star.coordinate.distance}, #{starBean.star.coordinate.longitude}, #{starBean.star.coordinate.latitude})" enabled="false" /> 
+			
+			<h:outputLabel for="distance" value="Distance to Ciadan" />
+			<h:outputText id="distance" size="5" value="#{starBean.star.distanceToCiadan} light years" enabled="false" /> 
+			
+			<h:outputLabel for="goldifrom" value="Goldilock zone from" />
+			<h:inputText id="goldifrom" row = "20" width = "20" value="#{starBean.star.goldilockZoneStart}" /> AE
+	
+			<h:outputLabel for="goldito" value="to" />
+			<h:inputText id="goldito" row = "20" width = "20" value="#{starBean.star.goldilockZoneEnd}" /> AE.
+			
+						
+			Sister: #{starBean.star.sister.designation} <h:commandButton id="sisterDetails" value="Details" action="#{starBean.starDetails(starBean.star.sister)}" />
+		</h:panelGrid>
+			
+		<h:dataTable id="planets" value = "#{starBean.star.planets}" var = "planet"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+		   
+		   <h:column>
+		      <f:facet name = "header">Index</f:facet>
+		      #{planet.planetIndex}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Type</f:facet>
+		      #{planet.type.nickname}
+		   </h:column>
+		   
+   		   <h:column>
+		      <f:facet name = "header">Habitability</f:facet>
+		      #{planet.type.habitability.habit}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Name</f:facet>
+		      #{planet.name}
+		   </h:column>
+		   
+		   <h:column>    				
+		      <f:facet name = "header">Access Level</f:facet>    				
+		      #{planet.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Distance to Star</f:facet>
+				#{planet.averageDistanceToStar}
+		   </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="details" value="Details" action="#{planetBean.planetDetails(planet)}" />
+		   </h:column>
+		     
+		</h:dataTable> <br/>
+		
+		<h:inputFile value="#{starBean.uploadedFile}">
+		    <f:ajax listener="#{starBean.upload}" />
+		    <f:ajax execute="@all" render="@all" />
+		</h:inputFile> <br/> <br/>
+		
+		<h:commandButton id="edit" value="Submit" action="#{starBean.submit}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{starBean.goToMainPage()}" />
+		
+	</h:form>
+</body> 
+</html>

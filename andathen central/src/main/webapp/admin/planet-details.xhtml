@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Details of a planet</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Planet: #{planetBean.planet.commonName} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >
+		<h:graphicImage value="/image?id=body_#{planetBean.planet.bodyImage.id}" width="200" height="200" /> <br/><br/>
+ 	
+		<h:panelGrid id = "outer-panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:panelGrid id = "inner-left-panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+		        <f:facet name = "header">
+    	           <h:outputText value = "General info"/>
+	            </f:facet>
+				<h:outputLabel for="description" value="Description &nbsp;" />
+				<h:inputTextarea id="description" row = "20" col = "100" width = "100" value="#{planetBean.planet.description}" /> 
+			
+				<h:outputLabel for="name" value="Name &nbsp;" />
+				<h:inputText id="name" size="25" value="#{planetBean.planet.name}" /> 
+				
+				<h:outputLabel for="planet_index" value="Index &nbsp;" />
+				<h:inputText id="planet_index" size="25" value="#{planetBean.planet.planetIndex}" /> 
+				
+				<h:outputLabel for="planet_type" value="Planet Type &nbsp;" />
+				<h:inputText id="planet_type" size="25" value="#{planetBean.planet.type}" /> 
+				
+				<h:outputLabel for="habitability" value="Habitability &nbsp;" />
+				<h:outputText id="habitability" size="25" value="#{planetBean.planet.type.habitability}" /> 
+				
+				<h:outputLabel for="distanceToStar" value="Average Distance to star &nbsp;" />
+				<h:inputText id="distanceToStar" size="25" value="#{planetBean.planet.averageDistanceToStar}" /> 
+				
+				<h:outputLabel for="tilt" value="Tilt &nbsp;" />
+				<h:inputText id="tilt" size="25" value="#{planetBean.planet.tilt}" /> 
+				
+				<h:outputLabel for="excentricity" value="Exentricity &nbsp;" />
+				<h:inputText id="excentricity" size="25" value="#{planetBean.planet.excentricity}" /> 
+				
+				<h:outputLabel for="accessLevel" value="Access Level &nbsp;" />
+				<h:selectOneMenu for="accessLevel" value="#{planetBean.planet.accessLevel}" >
+					<f:selectItems value="#{enumsBean.accessLevels}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			
+			<h:panelGrid id = "inner-right-panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+				<f:facet name = "header">
+    	           <h:outputText value = "Details"/>
+	            </f:facet>
+				<h:outputLabel for="description2" value="Description &nbsp;" />
+				<h:inputTextarea id="description2" row = "20" col = "100" width = "100" value="#{planetBean.planet.description}" /> 
+			</h:panelGrid>
+		</h:panelGrid>
+		
+		<h:inputFile value="#{planetBean.uploadedFile}">
+		    <f:ajax listener="#{planetBean.upload}" />
+		    <f:ajax execute="@all" render="@all" />
+		</h:inputFile> <br/> <br/>
+		
+		<h:commandButton id="edit" value="Submit" action="#{planetBean.submit}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{starBean.goToMainPage()}" />
+		
+	</h:form>
+</body> 
+</html>

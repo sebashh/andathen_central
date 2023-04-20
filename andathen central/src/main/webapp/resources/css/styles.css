@@ -1,0 +1,32 @@
+@charset "UTF-8";
+.generalTable {   
+   border-collapse:collapse;
+   border:1px solidd #000000;
+}
+
+.generalTableHeader {
+   text-align:center;
+   background:none repeat scroll 0 0 #B5B5B5;
+   border-bottom:1px solid #000000;  
+   padding:2px;
+}
+
+.generalTableOddRow {
+   text-align:center;
+   background:none repeat scroll 0 0 #FFFFFF;
+}
+
+.generalTableEvenRow {
+   text-align:center;
+   background:none repeat scroll 0 0 #D3D3D3;
+}
+
+.menuButton {
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+}
+
+.top-aligned-columns td {
+    vertical-align: top;
+}

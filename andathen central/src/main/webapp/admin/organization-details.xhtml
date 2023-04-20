@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>In-game organization details</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game organization: #{organizationBean.organization.name} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >
+	 	<h:graphicImage value="/image?id=organization_#{organizationBean.organization.id}" width="200" height="200" />
+	 	
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:outputLabel for="regnumber" value="Ciadan Registration Number" />
+			<h:inputText id="regnumber" size="25" value="#{organizationBean.organization.registrationNumber}" required="true" validatorMessage="Length of the registration number needs to be between 3 and 250 characters" enabled="true" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+		
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{organizationBean.organization.name}" required="true" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "100" width = "200" value="#{organizationBean.organization.description}" required="true" validatorMessage="Description length needs to be between 3 and 2000 characters" > 
+				<f:validateLength minimum = "3" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{organizationBean.organization.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+	  				
+			<h:inputFile value="#{organizationBean.uploadedFile}">
+			    <f:ajax listener="#{organizationBean.upload}" />
+			    <f:ajax execute="@this" render="@all" />
+			</h:inputFile>
+		</h:panelGrid>
+		
+		<h:message for = "regnumber" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "name" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "description" style = "color:red" showSummary = "false" /> 
+		
+		<h:commandButton id="edit" value="Submit" action="#{organizationBean.submit}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{organizationBean.goToMainPage()}" />
+		
+	</h:form>
+
+</body> 
+</html>

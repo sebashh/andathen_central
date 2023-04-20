@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of in-game resources</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game resources</h2>
+	
+	<h:form id="list" >
+
+		<h:dataTable id="resources" value = "#{resourceBean.resources}" var = "res"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+   
+   		   <h:column>
+ 		      <f:facet name = "header">Image</f:facet> 
+ 		      <h:graphicImage value="/image?id=resource_#{res.id}" width="40" height="40" />
+ 		   </h:column>
+   
+		   <h:column>    				
+		      <f:facet name = "header">Name</f:facet>    				
+		      #{res.name}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Scarcity</f:facet>
+		      #{res.scarcity.scarcity}
+		   </h:column>
+		   
+	  	   <h:column>
+		      <f:facet name = "header">Base price</f:facet>
+		      <h:outputText value="#{res.basePrice}" >
+			      <f:convertNumber type="currency" currencySymbol="₡" locale="nl_NL" />
+		      </h:outputText>
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Description</f:facet>
+		      #{res.shortDescription}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Access Level</f:facet>
+		      #{res.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="edit" value="Edit" action="#{resourceBean.edit(res)}" />
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{resourceBean.delete(res)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable> <br/><br/>
+		
+		<h:commandButton id="make" value="Add Resource" action="#{resourceBean.create}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{resourceBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>

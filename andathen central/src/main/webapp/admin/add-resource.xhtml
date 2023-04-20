@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Add new in-game resource</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Add new in-game resource </h2>
+	
+	<h:form id="details" >
+		<h:outputLabel for="name" value="Name" />
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:inputText id="name" size="25" value="#{resourceBean.resource.name}" required="true" validatorMessage="Length of the name needs to be between 3 and 250 characters" enabled="true" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "200" width = "200" value="#{resourceBean.resource.description}" required="true" validatorMessage="Description length needs to be between 3 and 2000 characters" > 
+				<f:validateLength minimum = "3" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="playerNotes" value="Player Notes" />
+			<h:inputTextarea id="playerNotes" row = "20" col = "200" width = "200" value="#{resourceBean.resource.playerNotes}" required="false" validatorMessage="Notes length needs to be between 3 and 2000 characters" > 
+				<f:validateLength minimum = "3" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="price" value="Base Price" />
+			<h:inputText id="price" value="#{resourceBean.resource.basePrice}" validatorMessage="Base price needs to be between 0,01 and 1.000.000,00"  > 
+				<f:validateDoubleRange minimum="0.01" maximum="100000000" />
+			</h:inputText> 
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{resourceBean.resource.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="scarcity" value="Scarcity" />
+			<h:selectOneMenu for="scarcity" value="#{resourceBean.resource.scarcity}" >
+				<f:selectItems value="#{enumsBean.scarcities}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		
+		<h:message for = "name" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "description" style = "color:red" showSummary = "false" /> 
+		<h:message for = "playerNotes" style = "color:red" showSummary = "false" /> 
+		<h:message for = "price" style = "color:red" showSummary = "false" />
+
+		<h:commandButton id="update" value="Create" action="#{resourceBean.add}" />
+	</h:form>
+
+</body> 
+</html>

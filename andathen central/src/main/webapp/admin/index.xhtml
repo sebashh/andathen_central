@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Andathen Central Admin Pages</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Andathen Central Admin Pages </h2>
+	
+	<h:form id="admin" >
+		<h3> User management</h3>
+		<h:commandLink id="zipcodes" value="Manage zipcodes" action="#{mainAdminBean.manageZipcodes}" /> <br/>
+		
+		<h3> Species and their properties</h3>
+		<h:commandLink id="species" value="Manage species" action="#{mainAdminBean.manageSpecies}" /> <br/>
+		<h:commandLink id="languages" value="Manage languages" action="#{mainAdminBean.manageLanguages}" /> <br/>
+		<h:commandLink id="cultures" value="Manage cultures" action="#{mainAdminBean.manageCultures}" /> <br/>	
+		
+		<h3> How to make stuff</h3>		
+		<h:commandLink id="resources" value="Manage resources" action="#{mainAdminBean.manageResources}" /> <br/>
+
+		<h3>Who is who </h3>
+		<h:commandLink id="organizations" value="Manage organizations" action="#{mainAdminBean.manageOrganizations}" /> <br/>
+		<h:commandLink id="sources" value="Manage sources" action="#{mainAdminBean.manageSources}" /> <br/>
+		<h:commandLink id="personalnames" value="Manage personal names" action="#{mainAdminBean.managePersonalNames}" /> <br/>
+		
+		<h3>Game mechanism</h3>
+		<h:commandLink id="skills" value="Manage skills" action="#{mainAdminBean.manageSkills}" /> <br/>
+		
+		<h3>The Galaxy</h3>
+		<h:commandLink id="stars" value="Manage star systems" action="#{mainAdminBean.manageStars}" /> <br/>
+	<br/>
+
+	</h:form>
+
+</body> 
+</html>

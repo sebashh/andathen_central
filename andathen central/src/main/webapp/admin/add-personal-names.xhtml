@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Add new in-game personal names</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Add new in-game personal names </h2>
+	
+	<h:form id="details" >
+		language, gender, first name, last name <br/>
+		
+		<h:inputTextarea id="data" row = "80" col = "200" width = "200" value="#{personalNameBean.bulkData}" required="true" validatorMessage="Length needs to be between 3 and 2000 characters" > 
+		</h:inputTextarea> <br/>
+		
+		<h:commandButton id="cancel" value="Cancel" action="#{personalNameBean.cancel}" />
+		<h:commandButton id="update" value="Create" action="#{personalNameBean.add}" />
+	</h:form>
+
+</body> 
+</html>

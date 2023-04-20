@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List zipcodes</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Cache-Control', 'no-cache, no-store')}" />
+	<h2>Zipcodes</h2>
+	
+	<h:form id="list" >
+		
+		<h:dataTable id="personalNames" value = "#{zipcodeBean.zipcodes}" var = "zip" rendered="#{zipcodeBean.zipcodes ne null}"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+		   
+   		   <h:column>
+                 <f:facet name = "header">Country</f:facet>
+                 #{zip.country.name}
+           </h:column>
+   
+		   <h:column>    				
+		      <f:facet name = "header">Code</f:facet>    				
+		      #{zip.code}
+		   </h:column>
+		   
+		   <h:column>    				
+		      <f:facet name = "header">Street</f:facet>    				
+		      #{zip.street}
+		   </h:column>
+           
+   		   <h:column>
+		      <f:facet name = "header">Municipality</f:facet>
+		      #{zip.municipality}
+		   </h:column>
+		   
+		     <h:column>
+		      <f:facet name = "header">Min Number</f:facet>
+		      #{zip.minNumber}
+		   </h:column>
+		   
+		     <h:column>
+		      <f:facet name = "header">Max Number</f:facet>
+		      #{zip.maxNumber}
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{zipcodeBean.delete(zip)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable> <br/><br/>
+		
+		<!--The paging buttons-->
+        <h:commandButton value="first" action="#{zipcodeBean.pageFirst}" disabled="#{zipcodeBean.firstRow == 0}" />
+        <h:commandButton value="prev" action="#{zipcodeBean.pagePrevious}" disabled="#{zipcodeBean.firstRow == 0}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:commandButton value="next" action="#{zipcodeBean.pageNext}" disabled="#{zipcodeBean.firstRow + zipcodeBean.rowsPerPage >= zipcodeBean.totalRows}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:commandButton value="last" action="#{zipcodeBean.pageLast}" disabled="#{zipcodeBean.firstRow + zipcodeBean.rowsPerPage >= zipcodeBean.totalRows}" />
+        <h:outputText value="&nbsp;" escape="false"/>
+        <h:outputText value="Page #{zipcodeBean.currentPage} / #{zipcodeBean.totalPages}" />
+        <br />
+            
+        <!--The paging links-->
+        <ui:repeat value="#{zipcodeBean.pages}" var="page">
+            <h:commandLink value="#{page}" actionListener="#{zipcodeBean.page}"  rendered="#{page != zipcodeBean.currentPage}" />
+        <b> <h:outputText value="#{page}" escape="false" rendered="#{page == zipcodeBean.currentPage}" /> </b>
+        </ui:repeat>
+        <br />
+        
+        <!-- Set rows per page -->
+        <h:outputLabel for="rowsPerPage" value="Rows per page" />
+        <h:inputText id="rowsPerPage" value="#{zipcodeBean.rowsPerPage}" size="3" maxlength="3" />
+        <h:commandButton value="Set" action="#{zipcodeBean.pageFirst}" />
+        <h:message for="rowsPerPage" errorStyle="color: red;" /> <br/><br/>
+            
+		<!-- Action buttons -->
+		<h:commandButton id="make" value="Add Zipcodes" action="#{zipcodeBean.addBulk}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{zipcodeBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>

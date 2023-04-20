@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Add a new culture</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Add a new culture </h2>
+	
+		<h:form id="details" enctype="multipart/form-data" >
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			<h:outputLabel for="name" value="Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+			<h:inputText id="name" size="25" value="#{cultureBean.culture.name}" required="true" validatorMessage="Length needs to be between 3 and 250 characters" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description &nbsp;" />
+			<h:inputTextarea id="description" row = "20" col = "100" width = "100" value="#{cultureBean.culture.description}" required="true" validatorMessage="Length needs to be between 20 and 2000 characters" > 
+				<f:validateLength minimum = "20" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="accessLevel" value="Access Level &nbsp;" />
+			<h:selectOneMenu for="accessLevel" value="#{cultureBean.culture.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+			<h3>Selecting species:</h3>		
+			<h:outputLabel for="accessLevelFilter" value="Access Level Filter: &nbsp;" />
+	        <h:selectOneMenu for="accessLevel" value="#{cultureBean.filterAccessLevelSpecies}" >
+	        	<f:selectItem  itemValue = "#{null}" itemLabel = "All"/>
+	            <f:selectItems value="#{enumsBean.accessLevels}" />
+	            <f:ajax listener="#{cultureBean.updateSpecies}" render="species_select"/>
+	        </h:selectOneMenu> 
+			
+			<h:outputLabel for="species" value="Species &nbsp;" />
+	        <h:selectOneMenu id="species_select" for="species" value="#{cultureBean.culture.species}" converter="omnifaces.SelectItemsConverter" >
+	            <f:selectItems value="#{cultureBean.specieOptions}" />
+	        </h:selectOneMenu>
+	    </h:panelGrid>
+				
+		<h:message for = "name" style = "color:red" showSummary = "false"/>  <br/>
+		<h:message for = "description" style = "color:red" showSummary = "false" />  <br/>
+		
+		<h:commandButton id="update" value="Create" action="#{cultureBean.add}" />
+		<h:commandButton id="cancel" value="Cancel" action="#{cultureBean.cancel}" /> <br/>
+			
+	</h:form>
+	
+</body> 
+</html>

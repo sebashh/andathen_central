@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of in-game sources</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>In-game sources</h2>
+	
+	<h:form id="list" >
+		<h3>Source filters:</h3>
+		<h:outputLabel for="accessLevelFilter" value="Access Level Filter: &nbsp;" />
+        <h:selectOneMenu for="accessLevel" value="#{sourceBean.filterAccessLevelOrganization}" >
+        	<f:selectItem  itemValue = "#{null}" itemLabel = "All"/>
+            <f:selectItems value="#{enumsBean.accessLevels}" />
+            <f:ajax listener="#{sourceBean.updateOrganizations}" render="sources"/>
+        </h:selectOneMenu> <br/>  <br/>
+		
+		<h:dataTable id="sources" value = "#{sourceBean.sources}" var = "src"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+
+   		   <h:column>
+ 		      <f:facet name = "header">Image</f:facet> 
+ 		      <h:graphicImage value="/image?id=source_#{src.id}" width="40" height="40" />
+ 		   </h:column>
+ 		   
+   		   <h:column>    				
+		      <f:facet name = "header">Registration Number</f:facet>    				
+		      #{src.registrationNumber}
+		   </h:column>
+   
+		   <h:column>    				
+		      <f:facet name = "header">Name</f:facet>    				
+		      #{src.name}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Description</f:facet>
+		      #{src.shortDescription}
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Access Level</f:facet>
+		      #{src.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+                 <f:facet name = "header">Owner</f:facet>
+                 #{src.owner.name}
+           </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="edit" value="Edit" action="#{sourceBean.edit(src)}" />
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{sourceBean.delete(src)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable> <br/><br/>
+		
+		<h:commandButton id="make" value="Add Source" action="#{sourceBean.create}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{sourceBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>
