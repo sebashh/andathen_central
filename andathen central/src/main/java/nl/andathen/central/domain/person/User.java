@@ -1,69 +1,63 @@
 package nl.andathen.central.domain.person;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="user")
-public class User implements Comparable<User>,Serializable{
+public class User implements Comparable<User>, Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
-	private String id;
-	@Column(name="fname")
+	private Long id;
+	@Column(name="username", unique=true)
+	private String username;
+	@Column(name="firstname", nullable =false)
 	private String firstname;
-	@Column(name="lname")
+	@Column(name="middlename", nullable =true)
+	private String middlename;
+	@Column(name="lastname", nullable =false)
 	private String lastname;
-	@Column(name="email")
+	@Column(name="email", nullable = false)
 	private String email;
 	@Column(name="password", nullable =false)
-	private String password;
-//	@Column (name="role")
-	@Transient
-	private List<String> role = new ArrayList<>();
+	private String password; // Hashed version
 	
-	/**
-	* It creates table "user"
-	* @param  id the user_id of the user
-	* @param  firstname the name of the user
-	* @param  lastName the lastName of the user
-	* @param  password the password of the user
-	* @param  email the email of the user
-	* @param  role the roles of the user
-	* @return String the info of the player
-	**/
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = Role.class)
+	private Set<Role> role = new HashSet<>();
 	
-	
-	public User(String id, String firstname, String lastname, String email, String password, String role) {
-		this.id = id;
+	public User (String username, String password, String firstname, String middlename, String lastname, String email,  Role role) {
+		this.username = username;
+		this.password = password;
 		this.firstname = firstname;
+		this.middlename = middlename;
 		this.lastname = lastname;
 		this.email = email;
-		this.password = password;
 		this.role.add(role);
-		}
+	}
 	
 	public User() {
 		
 	}
-	
-	public String getId() {
+
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getFirstname() {
 		return firstname;
 	}
@@ -82,19 +76,38 @@ public class User implements Comparable<User>,Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
-	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<String> getRoles() {
+	
+	public Set<Role> getRoles() {
         return role;
     }
+	
+	public boolean addRole(Role role) {
+		return this.role.add(role);
+	}
+	
+	public boolean removeRole(Role role) {
+		return this.role.remove(role);
+	}
     
+	public String getMiddlename() {
+		return middlename;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+	
+	public boolean checkCredentials(String password) {
+		return password.equals(this.password);
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, firstname, id, lastname, password, role);
+		return Objects.hash(username);
 	}
 
 	@Override
@@ -106,24 +119,28 @@ public class User implements Comparable<User>,Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email) && Objects.equals(firstname, other.firstname)
-				&& Objects.equals(id, other.id) && Objects.equals(lastname, other.lastname)
-				&& Objects.equals(password, other.password) && Objects.equals(role, other.role);
+		return Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + password + ", role=" + role + "]";
+		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", middlename=" + middlename
+				+ ", lastname=" + lastname + ", email=" + email + "]";
 	}
 
-	@Override
-	public int compareTo(User arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(User o) {
+		if (!this.lastname.equals(o.lastname)) {
+			return this.lastname.compareTo(o.lastname);
+		}
+		else if (!this.firstname.equals(o.firstname)) {
+			return this.firstname.compareTo(o.firstname);
+		}
+		else {
+			return this.email.compareTo(o.email);
+		}
 	}
 	
-	
-
+	public enum Role { USER, ADMIN, MEDIC
+		
+	}
 }
-

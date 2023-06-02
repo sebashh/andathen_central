@@ -3,44 +3,16 @@ package nl.andathen.central.domain.person;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="address") 
 public class Address implements Comparable<Address>, Serializable {
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 6451528693699069588L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
 	private Long id;
-	@Column(name="house_number", nullable=false, unique=false)
 	private int houseNumber;
-	@Column(name="house_extension",nullable=true, unique=false)
 	private String houseExtension;
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zipcode_id", referencedColumnName="id")
 	private Zipcode zipcode;
 	
 	public Address() {
 		
 	}
-	
-	/**
-	* It creates table "address"
-	* @param  house the house_id of the user
-	* @param  zipcode the zipcode of the user
-	*/
 
 	public Address(int houseNumber, String houseExtension, Zipcode zipcode) {
 		super();

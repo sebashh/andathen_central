@@ -1,49 +1,103 @@
 package nl.andathen.central.domain.person;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="contact")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Contact implements Serializable {
-	/**
-	 *
-	 */
+public class Contact implements Serializable {
 	private static final long serialVersionUID = -8051175764695399655L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "player_id")
-    private Player player;
+	private String firstname;
+	private String middlename;
+	private String lastname;
+	private String email;
+	private String phone;
+	private HashSet<Player> players;
 	
-	/**
-	* It creates table "Contact"
-	* @param  id the contact_id of the user
-	* @param  player the player_id of the user
-	*/
-	
-	public Contact(Long id, Player player) {
-		super();
-		this.id = id;
-		this.player = player;
+	public Contact() {
+		
 	}
-	
-	public Contact(Player player) {
-		this.player=player;
-	}
-	
-	public Contact() {}
 
+	public Contact(String firstname, String middlename, String lastname, String email, String phone) {
+		super();
+		this.firstname = firstname;
+		this.middlename = middlename;
+		this.lastname = lastname;
+		this.email = email;
+		this.phone = phone;
+		this.players = new HashSet<>();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getMiddlename() {
+		return middlename;
+	}
+
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, phone);
+	}
+	
+	public boolean addPlayer(Player player) {
+		return players.add(player);
+	}
+	
+	public boolean removePlayer(Player player) {
+		return players.remove(player);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		return Objects.equals(email, other.email) && Objects.equals(phone, other.phone);
+	}
 }
