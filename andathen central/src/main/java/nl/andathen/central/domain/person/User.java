@@ -140,7 +140,7 @@ public class User implements Comparable<User>, Serializable{
 		}
 	}
 	
-	public enum Role { USER, ADMIN, MEDIC
+	public enum Role { USER, PLAYER, ADMIN, MEDIC, GAMEMASTER, DEVELOPER, JOURNALIST, PHOTOGRAPHER
 		
 	}
 }
