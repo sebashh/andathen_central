@@ -28,7 +28,7 @@ import nl.andathen.central.domain.galaxy.StarDistanceComparator;
 
 @Named
 @SessionScoped
-public class StarBean extends AbstractBackingBean {
+public class StarBean extends AbstractBackingBean implements IImageUploader {
 	private static final long serialVersionUID = -5236525622645781211L; 
 	@EJB
 	private StarDao starDao;
@@ -169,4 +169,8 @@ public class StarBean extends AbstractBackingBean {
 		return "manage-stars?faces-redirect=true";
 	}
 
+	@Override
+	public void setImage(BufferedImage img) {
+		star.setImage(img);
+	}
 }

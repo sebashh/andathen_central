@@ -9,15 +9,19 @@ import javax.servlet.ServletContext;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
+import org.hibernate.type.descriptor.java.JavaTypeDescriptorRegistry;
 
-import nl.andathen.central.util.BufferedImageConverter;
+import nl.andathen.central.util.image.BufferedImageConverter;
+import nl.andathen.central.util.image.BufferedImageTypeDescriptor;
 
 @ApplicationScoped
 public class ApplicationScopedBean {
+	public static final String DEFAULT_SERVICE_URL = "http://localhost:8080/ciadan-central/services/wsdl/";
+	public static final String REVERSED_SERVICE_URL = ".wsdl.services.central.andathen.nl/";
+	private static final boolean INIT = false;
+	
 	@PersistenceContext(unitName="andathen")
     protected EntityManager entityManager;
-	
-	private static final boolean INIT = false;
 	
 	public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) 
 									ServletContext context) {
@@ -34,4 +38,9 @@ public class ApplicationScopedBean {
 	public BufferedImageConverter getImageConverter() {
 		return new BufferedImageConverter(); // Check memory effects of this!
 	}
+	
+    public void initOnStartup(@Observes @Initialized(ApplicationScoped.class) Object obj) {
+		JavaTypeDescriptorRegistry.INSTANCE.addDescriptor(new BufferedImageTypeDescriptor());
+		System.out.println("Application Scoped Bean initialized");
+    }
 }

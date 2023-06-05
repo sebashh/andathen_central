@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.galaxy.Body_;
 import nl.andathen.central.domain.galaxy.Star;
 
-@Generated(value="Dali", date="2022-08-15T16:06:41.123+0200")
+@Generated(value="Dali", date="2023-06-05T09:40:37.655+0200")
 @StaticMetamodel(Planet.class)
 public class Planet_ extends Body_ {
 	public static volatile SingularAttribute<Planet, Star> star;

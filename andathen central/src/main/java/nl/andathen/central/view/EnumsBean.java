@@ -10,6 +10,7 @@ import nl.andathen.central.domain.Intelligence;
 import nl.andathen.central.domain.LanguageType;
 import nl.andathen.central.domain.SpeciesCouncilRelation;
 import nl.andathen.central.domain.character.SkillCategory;
+import nl.andathen.central.domain.council.ShipType;
 import nl.andathen.central.domain.galaxy.LuminosityClass;
 import nl.andathen.central.domain.galaxy.StarType;
 import nl.andathen.central.domain.galaxy.planet.Climate;
@@ -35,6 +36,7 @@ public class EnumsBean {
 	private TechnicalLevel[] technicalLevels;
 	private Climate[] climates;
 	private SpeciesCouncilRelation[] relations;
+	private ShipType[] shipTypes;
 	
 	@PostConstruct
 	public void init() {
@@ -52,6 +54,7 @@ public class EnumsBean {
 		technicalLevels = TechnicalLevel.values();
 		climates = Climate.values();
 		relations = SpeciesCouncilRelation.values();
+		shipTypes = ShipType.values();
 	}
 	
 	public AccessLevel[] getAccessLevels() {
@@ -108,5 +111,9 @@ public class EnumsBean {
 
 	public PlanetType.Habitability[] getHabitabilities() {
 		return habitabilities;
+	}
+
+	public ShipType[] getShipTypes() {
+		return shipTypes;
 	}
 }

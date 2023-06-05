@@ -9,7 +9,7 @@ import nl.andathen.central.domain.galaxy.planet.Climate;
 import nl.andathen.central.domain.galaxy.planet.PlanetType;
 import nl.andathen.central.domain.galaxy.planet.TechnicalLevel;
 
-@Generated(value="Dali", date="2022-07-05T13:24:29.637+0200")
+@Generated(value="Dali", date="2023-06-05T09:40:37.966+0200")
 @StaticMetamodel(Species.class)
 public class Species_ {
 	public static volatile SingularAttribute<Species, Long> id;

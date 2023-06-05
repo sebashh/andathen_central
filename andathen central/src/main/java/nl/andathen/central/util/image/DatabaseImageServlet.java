@@ -1,8 +1,7 @@
-package nl.andathen.central.util;
+package nl.andathen.central.util.image;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.imageio.ImageIO;
@@ -11,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import nl.andathen.central.beans.ApplicationScopedBean;
 import nl.andathen.central.dao.AbstractDao;
 import nl.andathen.central.dao.BodyImageDao;
@@ -19,6 +17,8 @@ import nl.andathen.central.dao.LanguageDao;
 import nl.andathen.central.dao.OrganizationDao;
 import nl.andathen.central.dao.ResourceDao;
 import nl.andathen.central.dao.SourceDao;
+import nl.andathen.central.dao.SpaceshipClassDao;
+import nl.andathen.central.dao.SpaceshipDao;
 import nl.andathen.central.dao.SpeciesDao;
 
 @RequestScoped
@@ -26,6 +26,10 @@ public class DatabaseImageServlet extends HttpServlet {
 	private static final long serialVersionUID = -4241835145751881669L;
 	@EJB
 	private ResourceDao resourceDao;
+	@EJB
+	private SpaceshipDao spaceshipDao;
+	@EJB
+	private SpaceshipClassDao spaceshipClassDao;
 	@EJB
 	private LanguageDao languageDao;
 	@EJB
@@ -74,6 +78,8 @@ public class DatabaseImageServlet extends HttpServlet {
 	        // Read image from the database using the configured dao
 	        switch (imageClass) {
 	        	case "resource": image = doImageLookup(request, response, resourceDao, id); break;
+	        	case "spaceship": image = doImageLookup(request, response, spaceshipDao, id); break;
+	        	case "spaceshipClass": image = doImageLookup(request, response, spaceshipClassDao, id); break;
 	        	case "language": image = doImageLookup(request, response, languageDao, id); break;
 	        	case "species": image = doImageLookup(request, response, speciesDao, id); break;
 	        	case "source": image = doImageLookup(request, response, sourceDao, id); break;

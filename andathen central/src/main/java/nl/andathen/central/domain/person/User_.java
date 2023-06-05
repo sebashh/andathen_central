@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.person.User.Role;
 
-@Generated(value="Dali", date="2023-06-02T12:01:20.592+0200")
+@Generated(value="Dali", date="2023-06-05T09:40:37.823+0200")
 @StaticMetamodel(User.class)
 public class User_ {
 	public static volatile SingularAttribute<User, Long> id;

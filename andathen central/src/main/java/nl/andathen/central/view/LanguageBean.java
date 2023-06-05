@@ -1,11 +1,8 @@
 package nl.andathen.central.view;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -13,7 +10,6 @@ import java.util.TreeSet;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
@@ -23,7 +19,7 @@ import nl.andathen.central.domain.Language;
 
 @Named
 @SessionScoped
-public class LanguageBean implements Serializable {
+public class LanguageBean implements Serializable, IImageUploader {
 	private static final long serialVersionUID = 1068390508730479865L;
 	@EJB
 	private LanguageDao languageDao;
@@ -45,20 +41,6 @@ public class LanguageBean implements Serializable {
 	
 	public SortedSet<Language> getLanguages() {
 		return languages;
-	}
-	
-	public void upload() {
-		Paths.get(uploadedFile.getSubmittedFileName()).getFileName().toString();
-	    try (InputStream input = uploadedFile.getInputStream()) {
-	        byte[] fileContents = input.readAllBytes();
-	        if (fileContents.length <= 10485760) {
-			    BufferedImage img = ImageIO.read(new ByteArrayInputStream(fileContents));
-			    language.setImage(img);
-	        }
-	    }
-	    catch (IOException e) {
-	    	e.printStackTrace();
-	    }
 	}
 	
 	@Transactional
@@ -128,5 +110,10 @@ public class LanguageBean implements Serializable {
 	
 	public String goToMainPage() {
 	    return "index?faces-redirect=true";
+	}
+
+	@Override
+	public void setImage(BufferedImage img) {
+		language.setImage(img);
 	}
 }

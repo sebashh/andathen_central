@@ -40,9 +40,20 @@
     <servlet-name>cultures</servlet-name>
     <url-pattern>/services/wsdl/culture/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>sessions</servlet-name>
+    <servlet-class>nl.andathen.central.services.wsdl.session.SessionWSDL</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>sessions</servlet-name>
+    <url-pattern>/services/wsdl/session/*</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>resource-img</servlet-name>
-    <servlet-class>nl.andathen.central.util.DatabaseImageServlet</servlet-class>
+    <servlet-class>nl.andathen.central.util.image.DatabaseImageServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

@@ -14,7 +14,7 @@ import nl.andathen.central.services.wsdl.message.MessageService;
  * @author Can Karabey
  *
  */
-public class MessageClient {
+public class MessageTest {
 	public static void main(String[] args) throws Exception {		   
 		URL url = new URL("http://localhost:8080/ciadan-central/services/wsdl/message/MessageWSDL?wsdl");
 	    QName qname = new QName("http://message.wsdl.services.central.andathen.nl/", "MessageWSDLService");

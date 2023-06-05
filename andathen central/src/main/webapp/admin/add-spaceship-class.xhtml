@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Add spaceship class</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Add spaceship class </h2>
+	
+	<h:form id="details" >
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{spaceshipClassBean.spaceshipClass.name}" required="true" validatorMessage="Length of the name needs to be between 3 and 250 characters" enabled="true" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "200" width = "200" value="#{spaceshipClassBean.spaceshipClass.description}" required="false" /> 
+			
+			<h:outputLabel for="price" value="Base price" />
+			<h:inputText id="price" value="#{spaceshipClassBean.spaceshipClass.basePrice}" validatorMessage="Base price needs to be between 10.000 and 1.000.000,00"  > 
+				<f:validateDoubleRange minimum="10000" maximum="100000000" />
+			</h:inputText> 
+			
+			<h:outputLabel for="shipType" value="Type" />
+			<h:selectOneMenu for="shipType" value="#{spaceshipClassBean.spaceshipClass.shipType}" >
+				<f:selectItems value="#{enumsBean.shipTypes}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{spaceshipClassBean.spaceshipClass.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+		
+		<h:message for = "name" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "price" style = "color:red" showSummary = "false" />
+
+		<h:commandButton id="update" value="Create" action="#{spaceshipClassBean.add}" />
+	</h:form>
+
+</body> 
+</html>

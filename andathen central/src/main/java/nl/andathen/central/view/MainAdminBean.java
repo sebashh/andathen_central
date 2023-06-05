@@ -55,4 +55,12 @@ public class MainAdminBean implements Serializable {
 	public String manageStars() {
 		return "manage-stars?faces-redirect=true";
 	}
+	
+	public String manageSpaceships() {
+		return "manage-spaceships?faces-redirect=true";
+	}
+	
+	public String manageSpaceshipClasses() {
+		return "manage-spaceship-classes?faces-redirect=true";
+	}
 }

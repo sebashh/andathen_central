@@ -1,4 +1,4 @@
-package nl.andathen.central.domain.services.wsdl.session;
+package nl.andathen.central.services.wsdl.session;
 
 import java.math.BigInteger;
 
@@ -9,7 +9,7 @@ import javax.jws.WebService;
 public interface SessionService {
 	
 	@WebMethod public byte[] startSession(byte[] serializedUserPublicKey);
-	@WebMethod public byte[] testSession(BigInteger sessionId, byte[] prompt);
+	@WebMethod public byte[] testSession(BigInteger sessionId, byte[] prompt); 
 	
 	@WebMethod public byte[] createUser(BigInteger sessionId, byte[] encryptedUsername, byte[] encryptedPassword, byte[] encryptedFirstname, byte[] encryptedMiddlename, byte[] encryptedLastname, byte[] encryptedEmail,  byte[] encryptedRole);
 	

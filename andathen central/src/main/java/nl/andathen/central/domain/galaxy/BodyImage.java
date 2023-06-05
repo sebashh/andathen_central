@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import nl.andathen.central.util.IImageProvider;
+import nl.andathen.central.util.image.IImageProvider;
 
 // Images will be stored in the database, but that will take up a lot of space. 
 // To prevent the table file from growing too large images for bodies are to be 

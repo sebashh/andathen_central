@@ -1,4 +1,4 @@
-package nl.andathen.central.domain.services.wsdl.session;
+package nl.andathen.central.services.wsdl.session;
 
 import java.math.BigInteger;
 
@@ -13,18 +13,18 @@ import org.bouncycastle.crypto.util.PublicKeyFactory;
 import nl.andathen.central.dao.UserDao;
 import nl.andathen.central.domain.person.User;
 import nl.andathen.central.domain.person.User.Role;
-import nl.andathen.central.util.session.CryptoUtil;
+import nl.andathen.central.util.security.CryptoUtil;
 import nl.andathen.central.util.session.Session;
 import nl.andathen.central.util.session.SessionManager;
 
-@WebService(endpointInterface="services.SessionService")
+@WebService(endpointInterface="nl.andathen.central.services.wsdl.session.SessionService")
 public class SessionWSDL implements SessionService {
 	@Inject
 	private SessionManager sessionManager;
     @Inject
     private Pbkdf2PasswordHash passwordHash;
     @Inject
-    private UserDao userDao;
+    private UserDao userDao; 
 	
 	@Override
 	public byte[] testSession(BigInteger rawSessionId, byte[] prompt) {

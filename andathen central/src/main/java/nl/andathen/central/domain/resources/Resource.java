@@ -21,8 +21,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 
 import nl.andathen.central.domain.AccessLevel;
-import nl.andathen.central.util.IImageProvider;
 import nl.andathen.central.util.StringUtil;
+import nl.andathen.central.util.image.IImageProvider;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

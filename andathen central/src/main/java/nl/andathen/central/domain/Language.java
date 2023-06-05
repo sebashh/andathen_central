@@ -18,8 +18,8 @@ import javax.persistence.Table;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import nl.andathen.central.util.IImageProvider;
 import nl.andathen.central.util.StringUtil;
+import nl.andathen.central.util.image.IImageProvider;
 
 @Indexed
 @Entity

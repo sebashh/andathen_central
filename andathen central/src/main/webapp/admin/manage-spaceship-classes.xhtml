@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>List of spaceship classes</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>List of spaceship classes</h2>
+	
+	<h:form id="list" >
+
+		<h:dataTable id="spaceshipClasss" value = "#{spaceshipClassBean.spaceshipClasses}" var = "res"
+		   styleClass = "generalTable"
+		   headerClass = "generalTableHeader"
+		   rowClasses = "generalTableOddRow,generalTableEvenRow">
+   
+   		   <h:column>
+ 		      <f:facet name = "header">Image</f:facet> 
+ 		      <h:graphicImage value="/image?id=spaceshipClass_#{res.id}" width="40" height="40" />
+ 		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Ship Type</f:facet>
+		      #{res.shipType}
+		   </h:column>
+   
+		   <h:column>    				
+		      <f:facet name = "header">Name</f:facet>    				
+		      #{res.name}
+		   </h:column>
+		   
+	  	   <h:column>
+		      <f:facet name = "header">Base price</f:facet>
+		      <h:outputText value="#{res.basePrice}" >
+			      <f:convertNumber type="currency" currencySymbol="₡" locale="nl_NL" />
+		      </h:outputText>
+		   </h:column>
+		   
+		   <h:column>
+		      <f:facet name = "header">Access Level</f:facet>
+		      #{res.accessLevel}
+		   </h:column>
+		   
+		   <h:column>
+			   <h:commandButton id="edit" value="Edit" action="#{spaceshipClassBean.edit(res)}" />
+		   </h:column>
+		   
+		    <h:column>
+			   <h:commandButton id="delete" value="Delete" action="#{spaceshipClassBean.delete(res)}">
+			   		<f:ajax execute="@form" render="@all" />
+			   </h:commandButton>
+		   </h:column>
+		</h:dataTable> <br/><br/>
+		
+		<h:commandButton id="make" value="Add Class" action="#{spaceshipClassBean.create}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{spaceshipClassBean.goToMainPage()}" />
+	
+	</h:form>
+	
+</body> 
+</html>

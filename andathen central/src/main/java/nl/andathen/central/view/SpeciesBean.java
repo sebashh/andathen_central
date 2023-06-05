@@ -1,10 +1,7 @@
 package nl.andathen.central.view;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -12,7 +9,6 @@ import java.util.TreeSet;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
@@ -22,7 +18,7 @@ import nl.andathen.central.domain.Species;
 
 @Named
 @SessionScoped
-public class SpeciesBean extends AbstractBackingBean {
+public class SpeciesBean extends AbstractBackingBean implements IImageUploader {
 	private static final long serialVersionUID = 8479845193888586075L;
 	@EJB
 	private SpeciesDao speciesDao;
@@ -69,20 +65,6 @@ public class SpeciesBean extends AbstractBackingBean {
 		speciesMap.put(sk.getId(), sk);
 		this.specie = new Species();
 		return "manage-species?faces-redirect=true";
-	}
-	
-	public void upload() {
-		Paths.get(uploadedFile.getSubmittedFileName()).getFileName().toString();
-	    try (InputStream input = uploadedFile.getInputStream()) {
-	        byte[] fileContents = input.readAllBytes();
-	        if (fileContents.length <= 10485760) {
-			    BufferedImage img = ImageIO.read(new ByteArrayInputStream(fileContents));
-			    specie.setImage(img);
-	        }
-	    }
-	    catch (IOException e) {
-	    	e.printStackTrace();
-	    }
 	}
 	
 	@Transactional
@@ -150,5 +132,10 @@ public class SpeciesBean extends AbstractBackingBean {
 
 	public String goToMainPage() {
 	    return "index?faces-redirect=true";
+	}
+
+	@Override
+	public void setImage(BufferedImage img) {
+		specie.setImage(img);
 	}
 }

@@ -22,7 +22,7 @@ import nl.andathen.central.domain.galaxy.planet.Planet;
 
 @Named
 @SessionScoped
-public class PlanetBean extends AbstractBackingBean {
+public class PlanetBean extends AbstractBackingBean implements IImageUploader {
 	private static final long serialVersionUID = -5236525622645781211L; 
 	@EJB
 	private PlanetDao planetDao;
@@ -107,5 +107,10 @@ public class PlanetBean extends AbstractBackingBean {
 		planetDao.merge(planet);
 		this.planet = new Planet();
 		return "manage-stars?faces-redirect=true";
+	}
+
+	@Override
+	public void setImage(BufferedImage img) {
+		planet.setImage(img);
 	}
 }

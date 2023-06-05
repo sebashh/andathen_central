@@ -1,4 +1,4 @@
-package nl.andathen.central.util.session;
+package nl.andathen.central.util.security;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Details of a spaceship</title>  
+	<h:outputStylesheet library = "css" name = "styles.css" /> 
+</h:head> 
+
+<body> 
+	<h2>Spaceship: #{spaceshipBean.spaceship.designation} </h2>
+	
+	<h:form id="details" enctype="multipart/form-data" >
+	 	<h:graphicImage value="/image?id=spaceship_#{spaceshipBean.spaceship.id}" width="200" height="200" />
+		<h:panelGrid id = "panel" columns = "2" styleClass="top-aligned-columns" cellpadding = "10" cellspacing = "1">
+			
+			<h:outputLabel for="designation" value="Designation" />
+			<h:inputTextarea id="designation" row = "20" col = "100" width = "100" value="#{spaceshipBean.spaceship.designation}" required="true" validatorMessage="Designation length needs to be between 3 and 100 characters" > 
+				<f:validateLength minimum = "3" maximum = "100"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="spaceshipClass" value="Spaceship Class" />
+			<h:selectOneMenu for="spaceshipClass" value="#{spaceshipBean.spaceship.spaceshipClass}" converter="omnifaces.SelectItemsConverter" >
+				<f:selectItems value="#{spaceshipBean.classOptions}" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="name" value="Name" />
+			<h:inputText id="name" size="25" value="#{spaceshipBean.spaceship.name}" required="true" > 
+				<f:validateLength minimum = "3" maximum = "250" />
+			</h:inputText>
+			
+			<h:outputLabel for="description" value="Description" />
+			<h:inputTextarea id="description" row = "20" col = "100" width = "200" value="#{spaceshipBean.spaceship.description}" required="false" validatorMessage="Description length needs to be between 3 and 2000 characters" > 
+				<f:validateLength minimum = "3" maximum = "2000"  />
+			</h:inputTextarea>
+			
+			<h:outputLabel for="price" value="Price" />
+			<h:inputText id="price" value="#{spaceshipBean.spaceship.price}" validatorMessage="base price needs to be between 10.000 and 1.000.000,00"  > 
+				<f:validateDoubleRange minimum="10000" maximum="100000000" />
+			</h:inputText>
+			
+			<h:outputLabel for="accessLevel" value="Access Level" />
+			<h:selectOneMenu for="accessLevel" value="#{spaceshipBean.spaceship.accessLevel}" >
+				<f:selectItems value="#{enumsBean.accessLevels}" />
+			</h:selectOneMenu>
+			
+		</h:panelGrid>
+  				
+		<h:inputFile value="#{spaceshipBean.uploadedFile}">
+		    <f:ajax listener="#{spaceshipBean.upload}" />
+		    <f:ajax execute="@this" render="@all" />
+		</h:inputFile>
+		
+		<h:message for = "name" style = "color:red"   showSummary = "false"/> 
+		<h:message for = "description" style = "color:red" showSummary = "false" /> 
+		<h:message for = "designation" style = "color:red" showSummary = "false" /> 
+		<h:message for = "price" style = "color:red" showSummary = "false" /> 
+								
+		<h:commandButton id="edit" value="Submit" action="#{spaceshipBean.submit}" />
+		<h:commandButton id="goToMainAdmin" value="Main Admin Page" action="#{spaceshipBean.goToMainPage()}" />
+		
+	</h:form>
+
+</body> 
+</html>

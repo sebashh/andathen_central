@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class User implements Comparable<User>, Serializable{
+public class User implements Comparable<User>, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

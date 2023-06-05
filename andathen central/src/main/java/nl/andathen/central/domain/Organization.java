@@ -14,8 +14,8 @@ import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import nl.andathen.central.util.IImageProvider;
 import nl.andathen.central.util.StringUtil;
+import nl.andathen.central.util.image.IImageProvider;
 
 // An organization with effect on the game. Examples are the Exploration Forces, Defense Forces, Trade Forces, Senate, Trade Houses etc.
 // This class probably will have a bunch of subclasses, such as TradeHouse or Military

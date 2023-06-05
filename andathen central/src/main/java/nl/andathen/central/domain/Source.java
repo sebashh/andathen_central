@@ -16,8 +16,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import nl.andathen.central.util.IImageProvider;
 import nl.andathen.central.util.StringUtil;
+import nl.andathen.central.util.image.IImageProvider;
 
 // The information player characters unearth often comes from a source other than their own observations.
 // Those sources are modelled here. An example of such a source is a probe from the Exploratory Forces,

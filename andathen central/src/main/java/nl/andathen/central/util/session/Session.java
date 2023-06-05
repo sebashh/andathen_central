@@ -19,6 +19,8 @@ import org.bouncycastle.crypto.CryptoServicesRegistrar;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import nl.andathen.central.util.security.CryptoUtil;
+
 @SessionScoped
 public class Session implements Comparable<Session>, Serializable, Cloneable {
 	public static final String SYMMETRIC_KEY_ALGORITHM = "PBEWithSHA1And256BitAES-CBC-BC";

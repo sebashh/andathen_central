@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.AccessLevel;
 
-@Generated(value="Dali", date="2022-07-05T13:19:43.693+0200")
+@Generated(value="Dali", date="2023-06-05T09:40:37.914+0200")
 @StaticMetamodel(Resource.class)
 public class Resource_ {
 	public static volatile SingularAttribute<Resource, Long> id;

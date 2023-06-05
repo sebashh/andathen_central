@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import nl.andathen.central.util.IImageProvider;
+import nl.andathen.central.util.image.IImageProvider;
 
 @Stateless
 public abstract class AbstractDao<T> {

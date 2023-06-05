@@ -30,8 +30,8 @@ import nl.andathen.central.domain.galaxy.planet.Climate;
 import nl.andathen.central.domain.galaxy.planet.Planet;
 import nl.andathen.central.domain.galaxy.planet.PlanetType;
 import nl.andathen.central.domain.galaxy.planet.TechnicalLevel;
-import nl.andathen.central.util.IImageProvider;
 import nl.andathen.central.util.StringUtil;
+import nl.andathen.central.util.image.IImageProvider;
 
 @Indexed
 @Entity  

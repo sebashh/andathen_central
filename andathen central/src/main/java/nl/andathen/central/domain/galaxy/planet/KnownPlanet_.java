@@ -10,7 +10,7 @@ import nl.andathen.central.domain.Culture;
 import nl.andathen.central.domain.Species;
 import nl.andathen.central.domain.resources.Resource;
 
-@Generated(value="Dali", date="2022-08-15T16:15:39.732+0200")
+@Generated(value="Dali", date="2023-06-05T09:40:37.623+0200")
 @StaticMetamodel(KnownPlanet.class)
 public class KnownPlanet_ extends Planet_ {
 	public static volatile SingularAttribute<KnownPlanet, Double> population;

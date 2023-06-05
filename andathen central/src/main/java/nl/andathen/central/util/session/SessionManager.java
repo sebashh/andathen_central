@@ -16,6 +16,7 @@ import org.bouncycastle.crypto.params.RSAKeyParameters;
 
 import nl.andathen.central.domain.person.User;
 import nl.andathen.central.domain.person.User.Role;
+import nl.andathen.central.util.security.CryptoUtil;
 
 @ApplicationScoped
 public class SessionManager implements Runnable {
