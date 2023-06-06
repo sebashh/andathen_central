@@ -1,7 +1,6 @@
 package nl.andathen.central.domain.person;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
 
 public class Contact implements Serializable {
@@ -12,7 +11,6 @@ public class Contact implements Serializable {
 	private String lastname;
 	private String email;
 	private String phone;
-	private HashSet<Player> players;
 	
 	public Contact() {
 		
@@ -25,7 +23,6 @@ public class Contact implements Serializable {
 		this.lastname = lastname;
 		this.email = email;
 		this.phone = phone;
-		this.players = new HashSet<>();
 	}
 
 	public Long getId() {
@@ -79,14 +76,6 @@ public class Contact implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(email, phone);
-	}
-	
-	public boolean addPlayer(Player player) {
-		return players.add(player);
-	}
-	
-	public boolean removePlayer(Player player) {
-		return players.remove(player);
 	}
 
 	@Override

@@ -2,50 +2,29 @@ package nl.andathen.central.domain.resources;
 
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
-
 import nl.andathen.central.domain.AccessLevel;
+import nl.andathen.central.domain.character.Skill;
 
-@Entity
-@Table(name="item")
 public class Item extends Resource {
 	private static final long serialVersionUID = -4677250396785716937L;
+	private TreeMap<Resource, Integer> resourcesUsed; // The resource (and hence items) and how much is being used
+	private HashSet<Skill> skills; // Skills needed to create this item
+	private String recipe; // Textual description.
 	
-	@ElementCollection(targetClass = Integer.class)
-	@MapKeyColumn(name = "item_id", nullable = true)
-	@Column(name="amount", nullable=false)
-	@CollectionTable(name = "item_resource", joinColumns = {@JoinColumn(name = "resource_id", referencedColumnName = "id")})
-	private Map<Resource, Integer> resourcesUsed;
-    
-	@ElementCollection(targetClass = Integer.class)
-	@MapKeyColumn(name = "item_id", nullable = true)
-	@Column(name="amount", nullable=false)
-	@CollectionTable(name = "item_item", joinColumns = {@JoinColumn(name = "item_id", referencedColumnName = "id")})
-	private Map<Item, Integer> itemsUsed;
- 
-    @Column(name="recipe", columnDefinition="TEXT")
-	private String recipe;
-    
     public Item() {
-    	itemsUsed = new TreeMap<>();
     	resourcesUsed = new TreeMap<>();
     }
 
 	public Item(Long id, String name, String description, String playerNotes, Scarcity scarcity, BigDecimal basePrice,
 			AccessLevel accessLevel, BufferedImage image, String recipe) {
 		super(id, name, description, playerNotes, scarcity, basePrice, accessLevel, image);
-		this.itemsUsed = new TreeMap<>();
 		this.resourcesUsed = new TreeMap<>();
 		this.recipe = recipe;
+		this.skills = new HashSet<>();
 	}
 
 	public String getRecipe() {
@@ -60,16 +39,46 @@ public class Item extends Resource {
 		return resourcesUsed;
 	}
 
-	public Map<Item, Integer> getItemsUsed() {
-		return itemsUsed;
-	}
-
-	public void setResourcesUsed(Map<Resource, Integer> resourcesUsed) {
+	public void setResourcesUsed(TreeMap<Resource, Integer> resourcesUsed) {
 		this.resourcesUsed = resourcesUsed;
 	}
+	
+	public boolean addSkill(Skill skill) {
+		return this.skills.add(skill);
+	}
+	
+	public boolean removeSkill(Skill skill) {
+		return this.skills.remove(skill);
+	}
+	
+	public HashSet<Skill> getSkills() {
+		return skills;
+	}
 
-	public void setItemsUsed(Map<Item, Integer> itemsUsed) {
-		this.itemsUsed = itemsUsed;
+	public void setSkills(HashSet<Skill> skills) {
+		this.skills = skills;
+	}
+
+	public void addResource(Resource resource) {
+		Integer currentAmount = resourcesUsed.get(resource);
+		if (resourcesUsed.get(resource) == null) {
+			resourcesUsed.put(resource, 1);
+		}
+		else {
+			resourcesUsed.put(resource, currentAmount++);
+		}
+	}
+	
+	public void removeResource(Resource resource) {
+		Integer currentAmount = resourcesUsed.get(resource);
+		if (resourcesUsed.get(resource) != null) {
+			if (currentAmount > 1) {
+				resourcesUsed.put(resource, currentAmount--);
+			}
+			else {
+				resourcesUsed.remove(resource);
+			}
+		}
 	}
 
 	@Override

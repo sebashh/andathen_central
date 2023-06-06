@@ -1,8 +1,11 @@
 package nl.andathen.central.domain.character;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 
+import nl.andathen.central.domain.council.Spaceship;
 import nl.andathen.central.domain.person.Player;
 
 public class Character {
@@ -11,6 +14,10 @@ public class Character {
 	private String name;
 	private String description;
 	private LinkedList<CharacterClass> characterClasses; // Change to only allow uniques?
+	private HashSet<Skill> skills;
+	private Spaceship spaceshipOwned;
+	private Status status;
+	private BigDecimal funds;
 	
 	public Character(Player player, String name, String description) {
 		super();
@@ -18,6 +25,9 @@ public class Character {
 		this.name = name;
 		this.description = description;
 		this.characterClasses = new LinkedList<>();
+		this.skills = new HashSet<>();
+		this.status = Status.CREATED;
+		this.funds = BigDecimal.ZERO;
 	}
 	
 	public Character() {
@@ -71,6 +81,48 @@ public class Character {
 	public boolean removeCharacterClass(CharacterClass cc) {
 		return characterClasses.remove(cc);
 	}
+	
+	public boolean addSkill(Skill skill) {
+		return skills.add(skill);
+	}
+	
+	public boolean removeSkill(Skill skill) {
+		return skills.remove(skill);
+	}
+
+	public HashSet<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(HashSet<Skill> skills) {
+		this.skills = skills;
+	}
+
+	public Spaceship getSpaceshipOwned() {
+		return spaceshipOwned;
+	}
+
+	public void setSpaceshipOwned(Spaceship spaceshipOwned) {
+		this.spaceshipOwned = spaceshipOwned;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		if (this.status.getRank() <= status.getRank()) {
+			this.status = status;
+		}
+	}
+
+	public BigDecimal getFunds() {
+		return funds;
+	}
+
+	public void setFunds(BigDecimal funds) {
+		this.funds = funds;
+	}
 
 	@Override
 	public int hashCode() {
@@ -92,5 +144,17 @@ public class Character {
 	@Override
 	public String toString() {
 		return "Character [player=" + player + ", name=" + name + "]";
+	}
+	
+	public enum Status { INIT(1), CREATED(2), ACTIVE(3), RETIRED(4), DEAD(5);
+		private final int rank;
+		
+		private Status(int rank) {
+			this.rank = rank;
+		}
+
+		public int getRank() {
+			return rank;
+		}
 	}
 }

@@ -7,7 +7,7 @@ public class CharacterClass {
 	private String name;
 	private String description;
 	private boolean restricted; // Meaning the class can only be switched to if you have a teacher
-	private boolean blocked; // The bandit class, others could follow
+	private boolean blocked; // Now only for The bandit class, others could follow
 	private SortedMap<Skill, Integer> skillCosts;
 	private SortedMap<Skill, Boolean> teacherRequired;
 	
