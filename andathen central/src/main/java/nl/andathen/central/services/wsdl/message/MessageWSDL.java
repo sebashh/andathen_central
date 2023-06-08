@@ -26,7 +26,7 @@ public class MessageWSDL implements MessageService {
 		Collection<Message> messages = dao.get(FromCharacter,ToCharacter);
 		result.addAll(messages);
 		result.sort(null);
-		return result; 
+		return result;
 	}
 
 	@Override

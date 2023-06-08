@@ -35,7 +35,7 @@ public class MessageDao {
 	}
 	
 	public Collection<Message> get(String FromCharacter, String ToCharacter) {
-        TypedQuery<Message> query = entityManager.createQuery("FROM Message WHERE :FromCharacter = FromCharacter and :ToCharacter = ToCharacter", Message.class);
+        TypedQuery<Message> query = entityManager.createQuery("FROM Message WHERE :FromCharacter = sender and :ToCharacter = addressee", Message.class);
         query.setParameter("FromCharacter", FromCharacter);
         query.setParameter("ToCharacter", ToCharacter);
         try {
@@ -88,7 +88,7 @@ public class MessageDao {
 	}
 	
 	public Collection<Message> getGroupMessages(String ToCharacter){
-		TypedQuery<Message> query = entityManager.createQuery("FROM Message WHERE :ToCharacter = ToCharacter", Message.class);
+		TypedQuery<Message> query = entityManager.createQuery("FROM Message WHERE :ToCharacter = addressee", Message.class);
         query.setParameter("ToCharacter", ToCharacter);
         try {
         	return query.getResultList();
