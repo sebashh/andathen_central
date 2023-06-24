@@ -3,9 +3,9 @@ package nl.andathen.central.dao;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 
 import nl.andathen.central.domain.AccessLevel;
 import nl.andathen.central.domain.galaxy.planet.KnownPlanet;

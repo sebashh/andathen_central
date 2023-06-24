@@ -1,8 +1,8 @@
 package nl.andathen.central.domain.person;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 
 @Generated(value="Dali", date="2023-06-05T09:40:37.848+0200")
 @StaticMetamodel(Zipcode.class)

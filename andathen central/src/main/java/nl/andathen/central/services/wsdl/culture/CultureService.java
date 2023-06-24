@@ -2,9 +2,9 @@ package nl.andathen.central.services.wsdl.culture;
 
 import java.util.SortedSet;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
 
 import nl.andathen.central.domain.AccessLevel;
 import nl.andathen.central.domain.Culture;

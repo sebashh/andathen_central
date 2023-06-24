@@ -1,9 +1,9 @@
 package nl.andathen.central.domain;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.MapAttribute;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.MapAttribute;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.character.Skill;
 import nl.andathen.central.domain.galaxy.planet.Climate;
 import nl.andathen.central.domain.galaxy.planet.PlanetType;

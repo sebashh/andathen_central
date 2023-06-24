@@ -1,10 +1,10 @@
 package nl.andathen.central.domain.galaxy.planet;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.MapAttribute;
-import javax.persistence.metamodel.SetAttribute;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.MapAttribute;
+import jakarta.persistence.metamodel.SetAttribute;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.AccessLevel;
 import nl.andathen.central.domain.Culture;
 import nl.andathen.central.domain.Species;

@@ -4,19 +4,19 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import nl.andathen.central.util.StringUtil;
 import nl.andathen.central.util.image.IImageProvider;
@@ -35,13 +35,13 @@ public class Language implements Comparable<Language>, IImageProvider, Serializa
 	@Column(name="iso_code", unique=true)
 	private String iso;
 	@Column(name="name")
-	@Field
+	@FullTextField
 	private String name;
 	@Column(name="type")
 	@Enumerated(EnumType.STRING)
 	private LanguageType type;
 	@Column(name="description" , columnDefinition="TEXT")
-	@Field
+	@FullTextField
 	private String description;
 	@Lob
 	@Column(name="image", columnDefinition="MEDIUMBLOB")

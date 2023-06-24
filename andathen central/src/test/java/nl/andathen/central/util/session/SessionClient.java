@@ -6,7 +6,7 @@ import java.net.URL;
 import java.security.SecureRandom;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;

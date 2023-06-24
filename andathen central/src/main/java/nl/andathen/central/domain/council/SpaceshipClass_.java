@@ -1,8 +1,8 @@
 package nl.andathen.central.domain.council;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.AccessLevel;
 
 @Generated(value="Dali", date="2023-06-05T14:26:37.461+0200")

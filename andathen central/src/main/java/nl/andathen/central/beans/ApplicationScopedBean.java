@@ -1,14 +1,14 @@
 package nl.andathen.central.beans;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.servlet.ServletContext;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.ServletContext;
 
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
+import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.hibernate.type.descriptor.java.JavaTypeDescriptorRegistry;
 
 import nl.andathen.central.util.image.BufferedImageConverter;
@@ -26,9 +26,9 @@ public class ApplicationScopedBean {
 	public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) 
 									ServletContext context) {
 		if (INIT) {
-			FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+			SearchSession searchSession = Search.session(entityManager);
 			try {
-				fullTextEntityManager.createIndexer().startAndWait();
+				searchSession.massIndexer().startAndWait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

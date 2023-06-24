@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import javax.servlet.http.Part;
-import javax.transaction.Transactional;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.servlet.http.Part;
+import jakarta.transaction.Transactional;
 
 import nl.andathen.central.dao.SpaceshipClassDao;
 import nl.andathen.central.dao.SpaceshipDao;

@@ -2,8 +2,8 @@ package nl.andathen.central.services.wsdl.session;
 
 import java.math.BigInteger;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
 
 @WebService
 public interface SessionService {

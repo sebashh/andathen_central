@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.SessionScoped;
 import javax.imageio.ImageIO;
-import javax.inject.Named;
-import javax.servlet.http.Part;
-import javax.transaction.Transactional;
+import jakarta.inject.Named;
+import jakarta.servlet.http.Part;
+import jakarta.transaction.Transactional;
 
 import nl.andathen.central.dao.BodyImageDao;
 import nl.andathen.central.dao.PlanetDao;

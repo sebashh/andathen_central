@@ -1,9 +1,9 @@
 package nl.andathen.central.domain.resources;
 
 import java.math.BigDecimal;
-import javax.annotation.Generated;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.AccessLevel;
 
 @Generated(value="Dali", date="2023-06-05T09:40:37.914+0200")

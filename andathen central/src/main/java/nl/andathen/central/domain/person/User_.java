@@ -1,9 +1,9 @@
 package nl.andathen.central.domain.person;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.SetAttribute;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.SetAttribute;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.person.User.Role;
 
 @Generated(value="Dali", date="2023-06-05T09:40:37.823+0200")

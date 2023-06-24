@@ -3,20 +3,20 @@ package nl.andathen.central.domain.character;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import nl.andathen.central.util.StringUtil;
 
@@ -31,10 +31,10 @@ public class Skill implements Comparable<Skill>, Serializable {
 	@Column(name="name", unique=true)
 	private String name;
 	@Column(name="description" , nullable = false, columnDefinition="TEXT")
-	@Field
+	@FullTextField
 	private String description;
 	@Column(name="player_notes" , nullable=true, columnDefinition="TEXT")
-	@Field
+	@FullTextField
 	private String playerNotes;
 	@Column(name="category")
 	@Enumerated(EnumType.STRING)

@@ -1,9 +1,9 @@
 package nl.andathen.central.domain.galaxy;
 
-import javax.annotation.Generated;
-import javax.persistence.metamodel.SetAttribute;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
+import jakarta.annotation.Generated;
+import jakarta.persistence.metamodel.SetAttribute;
+import jakarta.persistence.metamodel.SingularAttribute;
+import jakarta.persistence.metamodel.StaticMetamodel;
 import nl.andathen.central.domain.galaxy.planet.Planet;
 
 @Generated(value="Dali", date="2023-06-05T09:40:37.687+0200")
