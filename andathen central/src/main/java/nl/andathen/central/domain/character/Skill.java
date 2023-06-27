@@ -3,17 +3,7 @@ package nl.andathen.central.domain.character;
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
@@ -27,6 +17,7 @@ public class Skill implements Comparable<Skill>, Serializable {
 	private static final long serialVersionUID = -8528464582090343594L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
 	private Long id;
 	@Column(name="name", unique=true)
 	private String name;
@@ -43,6 +34,9 @@ public class Skill implements Comparable<Skill>, Serializable {
 	private boolean ageExperience;
 	@OneToOne(targetEntity=Skill.class,cascade=CascadeType.MERGE, optional=true)
 	private Skill prerequisite;
+	@ManyToOne
+	@JoinColumn(name="character_id")
+	private Character character;
 	
 	public Skill(Long id, String name, String description, String playerNotes, SkillCategory category, boolean ageExperience, Skill prerequisite) {
 		super();

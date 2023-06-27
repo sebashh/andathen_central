@@ -1,16 +1,28 @@
 package nl.andathen.central.domain.person;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name="player")
 public class Player extends User {
 	private static final long serialVersionUID = 1749157413408852287L;
+	@JoinColumn(name="id")
 	private Address address;
+	@Column(name="date_of_birth", nullable = false)
 	private LocalDate dateOfBirth;
+	@Column(name="player_description")
 	private String description;
+	@Column(name="phone_number")
 	private String phone;
-	private HashSet<Contact> contacts;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="player")
+	private Set<Contact> contacts;
+	@Column(name="medical_info")
 	private String medicalInfo;
+	@Column(name="dietary_restrictions")
 	private String dietaryRestrictions;
 
 	public Player(String username, String password, String firstname, String middlename, String lastname, String email,

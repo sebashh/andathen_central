@@ -1,13 +1,24 @@
 package nl.andathen.central.domain.person;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name="address")
 public class Address implements Comparable<Address>, Serializable {
 	private static final long serialVersionUID = 6451528693699069588L;
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="address_id")
 	private Long id;
+	@Column(name="house_number", nullable =false)
 	private int houseNumber;
+	@Column(name="house_extension")
 	private String houseExtension;
+	@OneToOne
+	@JoinColumn(name="zipcode_id")
 	private Zipcode zipcode;
 	
 	public Address() {

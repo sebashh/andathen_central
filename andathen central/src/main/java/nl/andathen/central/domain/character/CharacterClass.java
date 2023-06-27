@@ -3,6 +3,7 @@ package nl.andathen.central.domain.character;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+
 public class CharacterClass {
 	private String name;
 	private String description;
@@ -10,7 +11,7 @@ public class CharacterClass {
 	private boolean blocked; // Now only for The bandit class, others could follow
 	private SortedMap<Skill, Integer> skillCosts;
 	private SortedMap<Skill, Boolean> teacherRequired;
-	
+
 	public CharacterClass(String name, String description, boolean restricted, boolean blocked) {
 		super();
 		this.skillCosts = new TreeMap<>();
@@ -49,33 +50,27 @@ public class CharacterClass {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (obj == null || getClass() != obj.getClass())
 			return false;
 		CharacterClass other = (CharacterClass) obj;
 		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+			return other.name == null;
+		} else return name.equals(other.name);
 	}
 
 	@Override
 	public String toString() {
 		return "CharacterClass [name=" + name + ", description=" + description + ", restricted=" + restricted + "]";
 	}
-	
+
 	public int addSkill(Skill skill, int costs, boolean teacherRequired) {
 		if (this.teacherRequired.put(skill, teacherRequired)) {
-			return skillCosts.put(skill,  costs);
-		}
-		else {
+			return skillCosts.put(skill, costs);
+		} else {
 			return -1;
 		}
 	}
-	
+
 	public int removeSkill(Skill skill) {
 		teacherRequired.remove(skill);
 		return skillCosts.remove(skill);

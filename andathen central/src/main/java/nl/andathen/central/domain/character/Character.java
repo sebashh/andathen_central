@@ -1,21 +1,35 @@
 package nl.andathen.central.domain.character;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Objects;
+import java.util.*;
 
+import jakarta.persistence.*;
 import nl.andathen.central.domain.council.Spaceship;
 import nl.andathen.central.domain.person.Player;
 
+@Entity
+@Table(name = "character")
 public class Character {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Long id;
+	@ManyToOne
+	@JoinColumn(name = "id", nullable = false)
 	private Player player;
+	@Column(name = "character_name", nullable = false)
 	private String name;
+	@Column(name = "character_description")
 	private String description;
-	private LinkedList<CharacterClass> characterClasses; // Change to only allow uniques?
-	private HashSet<Skill> skills;
-	private Spaceship spaceshipOwned;
+
+	// LinkedHashSet makes it so it can only contain unique values and also retains insertion order.
+	@Transient
+	private LinkedHashSet<CharacterClass> characterClasses; // Change to only allow uniques?
+	@OneToMany(mappedBy = "character")
+	private TreeSet<Skill> skills;
+	@OneToOne(mappedBy = "character")
+	private Spaceship spaceship;
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	private BigDecimal funds;
 	
@@ -24,8 +38,8 @@ public class Character {
 		this.player = player;
 		this.name = name;
 		this.description = description;
-		this.characterClasses = new LinkedList<>();
-		this.skills = new HashSet<>();
+		this.characterClasses = new LinkedHashSet<>();
+		this.skills = new TreeSet<>();
 		this.status = Status.CREATED;
 		this.funds = BigDecimal.ZERO;
 	}
@@ -66,11 +80,11 @@ public class Character {
 		this.description = description;
 	}
 
-	public LinkedList<CharacterClass> getCharacterClasses() {
+	public LinkedHashSet<CharacterClass> getCharacterClasses() {
 		return characterClasses;
 	}
 
-	public void setCharacterClasses(LinkedList<CharacterClass> characterClasses) {
+	public void setCharacterClasses(LinkedHashSet<CharacterClass> characterClasses) {
 		this.characterClasses = characterClasses;
 	}
 
@@ -90,20 +104,20 @@ public class Character {
 		return skills.remove(skill);
 	}
 
-	public HashSet<Skill> getSkills() {
+	public TreeSet<Skill> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(HashSet<Skill> skills) {
+	public void setSkills(TreeSet<Skill> skills) {
 		this.skills = skills;
 	}
 
 	public Spaceship getSpaceshipOwned() {
-		return spaceshipOwned;
+		return spaceship;
 	}
 
-	public void setSpaceshipOwned(Spaceship spaceshipOwned) {
-		this.spaceshipOwned = spaceshipOwned;
+	public void setSpaceshipOwned(Spaceship spaceship) {
+		this.spaceship = spaceship;
 	}
 
 	public Status getStatus() {
