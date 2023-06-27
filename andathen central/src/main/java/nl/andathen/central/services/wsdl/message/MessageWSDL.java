@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.jws.WebService;
+import jakarta.ejb.EJB;
+import jakarta.jws.WebService;
 
 import nl.andathen.central.dao.MessageDao;
 import nl.andathen.central.domain.ChatGroup;

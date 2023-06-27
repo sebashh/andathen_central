@@ -2,8 +2,8 @@ package nl.andathen.central.services.wsdl.culture;
 
 import java.util.SortedSet;
 
-import javax.ejb.EJB;
-import javax.jws.WebService;
+import jakarta.ejb.EJB;
+import jakarta.jws.WebService;
 
 import nl.andathen.central.dao.CultureDao;
 import nl.andathen.central.domain.AccessLevel;

@@ -1,7 +1,7 @@
 package nl.andathen.central.domain.galaxy;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 import nl.andathen.central.util.MathUtil;
 

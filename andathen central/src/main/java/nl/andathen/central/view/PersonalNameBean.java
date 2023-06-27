@@ -5,12 +5,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import javax.persistence.EntityExistsException;
-import javax.transaction.Transactional;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityExistsException;
+import jakarta.transaction.Transactional;
 
 import nl.andathen.central.dao.LanguageDao;
 import nl.andathen.central.dao.PersonNameDao;

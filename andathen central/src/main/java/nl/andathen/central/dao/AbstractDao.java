@@ -2,9 +2,9 @@ package nl.andathen.central.dao;
 
 import java.util.SortedSet;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import nl.andathen.central.util.image.IImageProvider;
 

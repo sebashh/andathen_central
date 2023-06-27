@@ -2,9 +2,9 @@ package nl.andathen.central.view;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.faces.component.UICommand;
-import javax.faces.event.ActionEvent;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.event.ActionEvent;
 
 public abstract class AbstractBackingBean  implements Serializable {
 	private static final long serialVersionUID = 4808264929952299570L;

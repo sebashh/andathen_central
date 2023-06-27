@@ -20,7 +20,7 @@ public class SessionTest {
 		SessionClient sc = new SessionClient();
 		Session session = sc.getSession();
 		SessionService ss = sc.getSessionService();
-		createTestUser (ss, session, "hdrillen", "OokWelkom", "Harald", null, "Drillenburg", "harald.drillenburg@inholland.nl", USER);
+		createTestUser (ss, session, "stillema", "OokWelkom", "Sebas", null, "Tillema", "harald.drillenburg@inholland.nl", USER);
 	}
 	
 	public void createTestUser(SessionService ss, Session session, String username, String password, String firstname, String middlename, String lastname, String email,  Role role) throws Exception  {

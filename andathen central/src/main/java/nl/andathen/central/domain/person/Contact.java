@@ -1,16 +1,31 @@
 package nl.andathen.central.domain.person;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name="contact")
 public class Contact implements Serializable {
 	private static final long serialVersionUID = -8051175764695399655L;
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="contact_id")
 	private Long id;
+	@Column(name="firstname", nullable =false)
 	private String firstname;
+	@Column(name="middlename")
 	private String middlename;
+	@Column(name="lastname", nullable =false)
 	private String lastname;
+	@Column(name="email", nullable = false)
 	private String email;
+	@Column(name="phone_number", nullable = false)
 	private String phone;
+	@ManyToOne
+	@JoinColumn(name="player_id")
+	private Player player;
 	
 	public Contact() {
 		

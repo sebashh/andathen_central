@@ -1,0 +1,1 @@
+insert into character (id, player_id, characterName, description, status, funds)

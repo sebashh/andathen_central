@@ -3,20 +3,10 @@ package nl.andathen.central.domain.character;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import nl.andathen.central.util.StringUtil;
 
@@ -27,14 +17,15 @@ public class Skill implements Comparable<Skill>, Serializable {
 	private static final long serialVersionUID = -8528464582090343594L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
 	private Long id;
 	@Column(name="name", unique=true)
 	private String name;
 	@Column(name="description" , nullable = false, columnDefinition="TEXT")
-	@Field
+	@FullTextField
 	private String description;
 	@Column(name="player_notes" , nullable=true, columnDefinition="TEXT")
-	@Field
+	@FullTextField
 	private String playerNotes;
 	@Column(name="category")
 	@Enumerated(EnumType.STRING)
@@ -43,6 +34,9 @@ public class Skill implements Comparable<Skill>, Serializable {
 	private boolean ageExperience;
 	@OneToOne(targetEntity=Skill.class,cascade=CascadeType.MERGE, optional=true)
 	private Skill prerequisite;
+	@ManyToOne
+	@JoinColumn(name="character_id")
+	private Character character;
 	
 	public Skill(Long id, String name, String description, String playerNotes, SkillCategory category, boolean ageExperience, Skill prerequisite) {
 		super();

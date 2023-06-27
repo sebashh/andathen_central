@@ -4,22 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import nl.andathen.central.domain.AccessLevel;
+import nl.andathen.central.domain.character.Character;
 import nl.andathen.central.util.image.IImageProvider;
 
 @Entity
+@Table(name="spaceship")
 public class Spaceship implements Comparable <Spaceship>, IImageProvider, Serializable {
 	private static final long serialVersionUID = -7956314235732759463L;
 	@Id
@@ -30,12 +22,12 @@ public class Spaceship implements Comparable <Spaceship>, IImageProvider, Serial
 	private String designation;
 	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "description", nullable = true, columnDefinition="TEXT")
+	@Column(name = "description", columnDefinition="TEXT")
 	private String description;
-	@Column(name = "access_level", nullable = true)
+	@Column(name = "access_level")
 	@Enumerated(EnumType.STRING)
 	private AccessLevel accessLevel;
-	@Column(name="price", nullable = true)
+	@Column(name="price")
 	private Long price;
 	@Lob
 	@Column(name="image", columnDefinition="MEDIUMBLOB", nullable=true)
@@ -43,6 +35,9 @@ public class Spaceship implements Comparable <Spaceship>, IImageProvider, Serial
 	@ManyToOne(cascade=CascadeType.ALL) 
 	@JoinColumn(name="spaceship_class", nullable=false)
 	private SpaceshipClass spaceshipClass;
+	@OneToOne
+	@JoinColumn(name="id")
+	private Character character;
 	
 	public Spaceship() {
 		

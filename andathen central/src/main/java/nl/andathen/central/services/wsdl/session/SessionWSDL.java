@@ -2,9 +2,9 @@ package nl.andathen.central.services.wsdl.session;
 
 import java.math.BigInteger;
 
-import javax.inject.Inject;
-import javax.jws.WebService;
-import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
+import jakarta.inject.Inject;
+import jakarta.jws.WebService;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.bouncycastle.crypto.params.RSAKeyParameters;

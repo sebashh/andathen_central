@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 public interface IImageUploader {
 	public Part getUploadedFile();

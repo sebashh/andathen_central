@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
-import javax.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
 
 import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.crypto.CryptoServicesRegistrar;
